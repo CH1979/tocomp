@@ -1,0 +1,7 @@
+/.vscode
+/env
+
+migrations
+*.sqlite3
+*.pyc
+TODO
