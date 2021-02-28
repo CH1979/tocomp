@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -35,31 +35,30 @@ class Course(models.Model):
         unique=True
     )
 
+    def __str__(self):
+        return f'{self.name}'
 
-class GroupExtended(models.Model):
+
+class GroupDetail(Group):
     '''
     Дополнительная информация по группам учащихся
     '''
-    group = models.OneToOneField(Group)
+    name = None
     year = models.ForeignKey(
         Period,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True
+        on_delete=models.RESTRICT,
+        blank=False,
+        null=False
     )
     course = models.ForeignKey(
         Course,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True
-    )
-    teacher = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        limit_choices_to={'is_staff': True}
+        on_delete=models.RESTRICT,
+        blank=False,
+        null=False
     )
 
     def __str__(self):
         return f'{self.year}-{self.course}'
+
+    class Meta:
+        unique_together = ('year', 'course')
