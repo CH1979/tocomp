@@ -7,7 +7,9 @@
 
     {% for news in news_list %}
     <div>
-      <div>{{ news.title }}</div>
+      <a href="{% url 'news-detail' news.id %}">
+        <div>{{ news.title }}</div>
+      </a>
       <div>{{ news.author }}</div>
       <div>{{ news.created_at }}</div>
       <div>{{ news.content|safe }}</div>

@@ -6,3 +6,7 @@ class NewsListView(generic.ListView):
     model = News
     context_object_name = 'news_list'
     queryset = News.objects.all()[:5]
+
+
+class NewsDetailView(generic.DetailView):
+    model = News
