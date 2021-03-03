@@ -28,6 +28,9 @@ class ExamCard(models.Model):
     )
     number = models.IntegerField()
 
+    def __str__(self):
+        return f'{self.exam}. Билет № {self.number}'
+
 
 class Question(models.Model):
     '''
@@ -75,12 +78,15 @@ class LabelsForAnswerChoice(models.Model):
     '''
     Варианты ответа
     '''
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     label = models.CharField(
         max_length=50,
         blank=False,
         null=False
     )
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.label}'
 
 
 class AnswerChoice(models.Model):
