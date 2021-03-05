@@ -74,7 +74,7 @@ class TextAnswer(models.Model):
     answer = models.TextField()
 
 
-class LabelsForAnswerChoice(models.Model):
+class LabelsForChoice(models.Model):
     '''
     Варианты ответа
     '''
@@ -89,11 +89,11 @@ class LabelsForAnswerChoice(models.Model):
         return f'{self.label}'
 
 
-class AnswerChoice(models.Model):
+class Choice(models.Model):
     '''
     Выбранные варианты ответов
     '''
-    choice = models.ForeignKey(LabelsForAnswerChoice, on_delete=models.CASCADE)
+    choice = models.ForeignKey(LabelsForChoice, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
