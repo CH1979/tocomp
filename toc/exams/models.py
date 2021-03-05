@@ -26,7 +26,7 @@ class ExamCard(models.Model):
         Exam,
         on_delete=models.RESTRICT
     )
-    number = models.IntegerField()
+    number = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return f'{self.exam}. Билет № {self.number}'
