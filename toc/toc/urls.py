@@ -19,11 +19,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+
 urlpatterns = [
-    path('', include('news.urls')),
+    path('news/', include('news.urls')),
+    path('exams/', include('exams.urls')),
     path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls'))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+] \
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 # Перечитать https://docs.djangoproject.com/en/3.1/howto/static-files/
 # перед переносом в прод
