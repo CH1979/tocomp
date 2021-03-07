@@ -28,6 +28,9 @@ class ExamCard(models.Model):
     )
     number = models.PositiveSmallIntegerField()
 
+    class Meta:
+        unique_together = ('exam', 'number')
+
     def __str__(self):
         return f'{self.exam}. Билет № {self.number}'
 
