@@ -1,0 +1,25 @@
+{% load static %}
+
+{% block exam %}
+  <h1>Темы экзаменов</h1>
+
+  {% if exam_list %}
+    <div>
+      {% for exam in exam_list %}
+        <div>
+          <h2>{{ exam.theme }}</h2>
+          <p>Количество билетов: {{ exam.num_cards }}</p>
+          <p>
+            <a href="{% url 'exam-update' exam.id %}">изменить тему</a>
+            <a href="{% url 'exam-detail' exam.id %}">добавить билеты</a>
+            <a href="{% url 'exam-delete' exam.id %}">удалить тему</a>
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div>Список тем пуст</div>
+  {% endif %}
+
+  <a href="{% url 'exam-create' %}">Добавить тему экзамена</a>
+{% endblock %}

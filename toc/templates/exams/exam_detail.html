@@ -1,0 +1,11 @@
+{% block content %}
+
+<h1>{{ exam.theme }}</h1>
+<h2>Билеты</h2>
+<ul>
+{% for card in exam.examcard.all %}
+<a href=""><li>Билет №{{ card.number }}</li></a>
+{% endfor %}
+</ul>
+<a href="">Добавить билет</a>
+{% endblock %}
