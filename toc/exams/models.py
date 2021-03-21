@@ -30,6 +30,7 @@ class ExamCard(models.Model):
 
     class Meta:
         unique_together = ('exam', 'number')
+        ordering = ['number']
 
     def __str__(self):
         return f'{self.exam}. Билет № {self.number}'
