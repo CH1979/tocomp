@@ -1,11 +1,23 @@
-{% block content %}
+{% load static %}
 
-<h1>{{ exam.theme }}</h1>
-<h2>Билеты</h2>
-<ul>
-{% for card in exam.examcard.all %}
-<a href=""><li>Билет №{{ card.number }}</li></a>
-{% endfor %}
-</ul>
-<a href="">Добавить билет</a>
+{% block examcards %}
+
+<h1>Список билетов по теме: {{ exam.theme }}</h1>
+  <div>
+    {% for examcard in exam.examcard_set.all %}
+      <div>
+        <p>Билет № {{ examcard.number }}</p>
+          <ul>
+            {% for question in examcard.question_set.all %}
+              <li>{{ question.title }}</li>
+            {% endfor %}
+          </ul>
+          <a href="{% url 'examcard-detail' exam.id examcard.id %}">изменить билет</a>
+          <a href="{% url 'examcard-delete' exam.id examcard.id %}">удалить билет</a>
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a href="{% url 'examcard-create' exam.id %}">Добавить билет</a>
 {% endblock %}

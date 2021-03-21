@@ -1,0 +1,12 @@
+{% block content %}
+
+<h1>Удаление билета</h1>
+
+<p>Вы уверены, что хотите удалить билет №: {{ examcard.number }} по теме: {{ examcard.exam.theme }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Да, удалить." />
+</form>
+
+{% endblock %}
