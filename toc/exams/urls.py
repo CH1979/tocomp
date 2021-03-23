@@ -3,8 +3,16 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.ExamListView.as_view(), name='exam-list'),
-    path('create/', views.ExamCreateView.as_view(), name='exam-create'),
+    path(
+        '',
+        views.ExamListView.as_view(),
+        name='exam-list'
+    ),
+    path(
+        'create/',
+        views.ExamCreateView.as_view(),
+        name='exam-create'
+    ),
     path(
         '<int:pk>/update/',
         views.ExamUpdateView.as_view(),
@@ -15,7 +23,11 @@ urlpatterns = [
         views.ExamDeleteView.as_view(),
         name='exam-delete'
     ),
-    path('<int:pk>/', views.ExamDetailView.as_view(), name='exam-detail'),
+    path(
+        '<int:pk>/',
+        views.ExamDetailView.as_view(),
+        name='exam-detail'
+    ),
     path(
         '<int:exam>/examcards/<int:pk>/',
         views.ExamCardDetailView.as_view(),
@@ -30,5 +42,20 @@ urlpatterns = [
         '<int:exam>/examcards/<int:pk>/delete/',
         views.ExamCardDeleteView.as_view(),
         name='examcard-delete'
+    ),
+    path(
+        '<int:exam>/examcards/<int:examcard>/question/create/',
+        views.QuestionCreateView.as_view(),
+        name='question-create'
+    ),
+    path(
+        '<int:exam>/examcards/<int:examcard>/question/<int:pk>/',
+        views.QuestionDetailView.as_view(),
+        name='question-detail'
+    ),
+    path(
+        '<int:exam>/examcards/<int:examcard>/question/<int:pk>/addchoice/',
+        views.LabelCreateView.as_view(),
+        name='label-create'
     )
 ]

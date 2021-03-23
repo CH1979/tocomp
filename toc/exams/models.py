@@ -11,7 +11,8 @@ class Exam(models.Model):
         max_length=255,
         blank=False,
         null=False,
-        unique=True
+        unique=True,
+        verbose_name='Тема экзамена'
     )
 
     def __str__(self):
@@ -24,7 +25,7 @@ class ExamCard(models.Model):
     '''
     exam = models.ForeignKey(
         Exam,
-        on_delete=models.RESTRICT
+        on_delete=models.CASCADE
     )
     number = models.PositiveSmallIntegerField()
 
@@ -33,14 +34,14 @@ class ExamCard(models.Model):
         ordering = ['number']
 
     def __str__(self):
-        return f'{self.exam}. Билет № {self.number}'
+        return f'{self.exam} - билет № {self.number}'
 
 
 class Question(models.Model):
     '''
     Содержание вопроса и указание типа ответа
     '''
-    exam_card = models.ForeignKey(
+    examcard = models.ForeignKey(
         ExamCard,
         on_delete=models.RESTRICT
     )
@@ -78,7 +79,7 @@ class TextAnswer(models.Model):
     answer = models.TextField()
 
 
-class LabelsForChoice(models.Model):
+class LabelForChoice(models.Model):
     '''
     Варианты ответа
     '''
@@ -97,7 +98,7 @@ class Choice(models.Model):
     '''
     Выбранные варианты ответов
     '''
-    choice = models.ForeignKey(LabelsForChoice, on_delete=models.CASCADE)
+    choice = models.ForeignKey(LabelForChoice, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 

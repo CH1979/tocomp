@@ -1,6 +1,7 @@
-{% load static %}
-
 {% block examcards %}
+<p>
+  <a href="{% url 'exam-list' %}">Список экзаменов</a>
+</p>
 
 <h1>Список билетов по теме: {{ exam.theme }}</h1>
   <div>
@@ -12,7 +13,7 @@
               <li>{{ question.title }}</li>
             {% endfor %}
           </ul>
-          <a href="{% url 'examcard-detail' exam.id examcard.id %}">изменить билет</a>
+          <a href="{% url 'examcard-detail' exam.id examcard.id %}">список вопросов</a>
           <a href="{% url 'examcard-delete' exam.id examcard.id %}">удалить билет</a>
         </p>
       </div>

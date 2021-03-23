@@ -1,0 +1,16 @@
+{% block content %}
+
+<h1>Создание вопроса</h1>
+
+<form action="" method="post">
+
+  {% csrf_token %}
+  <table>
+    {{ form.media }}
+    {{ form.as_p }}
+  </table>
+  <input type="submit" value="Сохранить">
+
+</form>
+
+{% endblock %}

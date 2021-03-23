@@ -1,7 +1,7 @@
 {% load static %}
 
 {% block exam %}
-  <h1>Темы экзаменов</h1>
+  <h1>Экзамены</h1>
 
   {% if exam_list %}
     <div>
@@ -11,8 +11,8 @@
           <p>Количество билетов: {{ exam.num_cards }}</p>
           <p>
             <a href="{% url 'exam-update' exam.id %}">изменить тему</a>
-            <a href="{% url 'exam-detail' exam.id %}">добавить билеты</a>
-            <a href="{% url 'exam-delete' exam.id %}">удалить тему</a>
+            <a href="{% url 'exam-detail' exam.id %}">список билетов</a>
+            <a href="{% url 'exam-delete' exam.id %}">удалить экзамен</a>
           </p>
         </div>
       {% endfor %}

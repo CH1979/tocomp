@@ -1,18 +1,18 @@
 {% block content %}
 <p>
-  <a href="{% url 'exam-list' %}">К списку экзаменов</a>
+  <a href="{% url 'exam-list' %}">Список экзаменов</a>
 </p>
 <p>
-  <a href="{% url 'exam-detail' examcard.exam.id %}">К списку билетов по теме: examcard.exam</a>
+  <a href="{% url 'exam-detail' examcard.exam.id %}">Cписок билетов по теме: {{ examcard.exam }}</a>
 </p>
   <h1>{{ examcard.exam }}</h1>
 <h2>Билет №: {{ examcard.number }}</h2>
   <ul>
     {% for question in examcard.question_set.all %}
       <li>{{ question.title }}</li>
-      <a href="#">изменить вопрос</a>
+      <a href="{% url 'question-detail' examcard.exam.id examcard.id question.id %}">изменить вопрос</a>
       <a href="#">удалить вопрос</a>
     {% endfor %}
   </ul>
-  <a href="#">Добавить вопрос</a>
+  <a href="{% url 'question-create' examcard.exam.id examcard.id %}">Добавить вопрос</a>
 {% endblock %}
