@@ -12,16 +12,19 @@
 <h1>{{ question.examcard }}</h1>
 <h2>{{ question.title }}</h2>
 <div>{{ question.content|safe }}</div>
-<h3>Варинты ответа</h3>
-{{ question.answer_type }}
-<form>
-  {% for label in question.labelforchoice_set.all %}
-    {% if question.answer_type == "MC" %}
-      <input type="checkbox">{{ label.label }}</input>
-    {% elif question.answer_type == "SC" %}
-      <input type="radio">{{ label.label }}</input>
-    {% endif %}
-  {% endfor %}
-</form>
-<a href="{% url 'label-create' question.examcard.exam.id question.examcard.id question.id %}">Добавить вариант ответа</a>
+
+{% if question.answer_type == "MC" or question.answer_type == "SC" %}
+  <h3>Варинты ответа</h3>
+  <form>
+    {% for label in question.labelforchoice_set.all %}
+      {% if question.answer_type == "MC" %}
+        <input type="checkbox">{{ label.label }}</input>
+      {% elif question.answer_type == "SC" %}
+        <input type="radio">{{ label.label }}</input>
+      {% endif %}
+    {% endfor %}
+  </form>
+  <a href="{% url 'label-create' question.examcard.exam.id question.examcard.id question.id %}">Добавить вариант ответа</a>
+{% endif %}
+
 {% endblock %}
