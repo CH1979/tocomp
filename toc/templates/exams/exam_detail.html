@@ -1,0 +1,24 @@
+{% block examcards %}
+<p>
+  <a href="{% url 'exam-list' %}">Список экзаменов</a>
+</p>
+
+<h1>Билеты по теме: {{ exam.theme }}</h1>
+  <div>
+    {% for examcard in exam.examcard_set.all %}
+      <div>
+        <p>Билет № {{ examcard.number }}</p>
+          <ul>
+            {% for question in examcard.question_set.all %}
+              <li>{{ question.title }}</li>
+            {% endfor %}
+          </ul>
+          <a href="{% url 'examcard-detail' exam.id examcard.id %}">список вопросов</a>
+          <a href="{% url 'examcard-delete' exam.id examcard.id %}">удалить билет</a>
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a href="{% url 'examcard-create' exam.id %}">Добавить билет</a>
+{% endblock %}

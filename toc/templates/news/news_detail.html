@@ -1,0 +1,11 @@
+{% load static %}
+{% block news %}
+  <div>
+    <a href="{% url 'news-detail' news.id %}">
+      <div>{{ news.title }}</div>
+    </a>
+    <div>{{ news.author }}</div>
+    <div>{{ news.created_at }}</div>
+    <div>{{ news.content|safe }}</div>
+  </div>
+{% endblock %}

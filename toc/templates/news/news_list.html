@@ -1,0 +1,23 @@
+{% load static %}
+{% block news %}
+  <h1>Новости</h1>
+
+  {% if news_list %}
+  <ul>
+
+    {% for news in news_list %}
+    <div>
+      <a href="{% url 'news-detail' news.id %}">
+        <div>{{ news.title }}</div>
+      </a>
+      <div>{{ news.author }}</div>
+      <div>{{ news.created_at }}</div>
+      <div>{{ news.content|safe }}</div>
+    </div>
+    {% endfor %}
+
+  </ul>
+  {% else %}
+  <div>Новостей нет</div>
+  {% endif %}
+{% endblock %}

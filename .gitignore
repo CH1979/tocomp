@@ -1,5 +1,7 @@
 /.vscode
 /env
+/toc/static
+/toc/uploads
 
 migrations
 *.sqlite3
