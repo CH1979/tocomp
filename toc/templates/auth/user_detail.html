@@ -1,0 +1,12 @@
+{% block content %}
+
+{% if user.is_staff %}
+  <h1>Аккаунт преподавателя</h1>
+{% else %}
+  <h1>Аккаунт учащегося</h1>
+{% endif %}
+
+<p>{{ user.username }}</p>
+<h2>{{ user.first_name }} {{ user.last_name }}</h2>
+
+{% endblock %}
