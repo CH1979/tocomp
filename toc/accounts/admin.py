@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import Course, GroupDetail, Period
+from .models import Course, GroupDetail
 
 
 admin.site.register(Course)
-admin.site.register(Period)
 
 
 @admin.register(GroupDetail)
