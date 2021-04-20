@@ -1,61 +1,14 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
 
+router = DefaultRouter()
+router.register(r'exams', views.ExamViewSet)
+router.register(r'examcards', views.ExamCardViewSet, basename='examcards')
+router.register(r'questions', views.QuestionViewSet, basename='questions')
+router.register(r'labels', views.LabelViewSet, basename='labels')
+
 urlpatterns = [
-    path(
-        '',
-        views.ExamListView.as_view(),
-        name='exam-list'
-    ),
-    path(
-        'create/',
-        views.ExamCreateView.as_view(),
-        name='exam-create'
-    ),
-    path(
-        '<int:pk>/update/',
-        views.ExamUpdateView.as_view(),
-        name='exam-update'
-    ),
-    path(
-        '<int:pk>/delete/',
-        views.ExamDeleteView.as_view(),
-        name='exam-delete'
-    ),
-    path(
-        '<int:pk>/',
-        views.ExamDetailView.as_view(),
-        name='exam-detail'
-    ),
-    path(
-        '<int:exam>/examcards/<int:pk>/',
-        views.ExamCardDetailView.as_view(),
-        name='examcard-detail'
-    ),
-    path(
-        '<int:exam>/examcard/create/',
-        views.examcard_create_view,
-        name='examcard-create'
-    ),
-    path(
-        '<int:exam>/examcards/<int:pk>/delete/',
-        views.ExamCardDeleteView.as_view(),
-        name='examcard-delete'
-    ),
-    path(
-        '<int:exam>/examcards/<int:examcard>/question/create/',
-        views.QuestionCreateView.as_view(),
-        name='question-create'
-    ),
-    path(
-        '<int:exam>/examcards/<int:examcard>/question/<int:pk>/',
-        views.QuestionDetailView.as_view(),
-        name='question-detail'
-    ),
-    path(
-        '<int:exam>/examcards/<int:examcard>/question/<int:pk>/addchoice/',
-        views.LabelCreateView.as_view(),
-        name='label-create'
-    )
+    path('', include(router.urls)),
 ]
