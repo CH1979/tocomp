@@ -1,5 +1,7 @@
 /.vscode
 /env
+/dist
+/node_modules
 /toc/static
 /toc/uploads
 
