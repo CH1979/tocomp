@@ -4,11 +4,24 @@ from . import views
 
 
 router = DefaultRouter()
-router.register(r'exams', views.ExamViewSet)
+router.register(r'exams', views.ExamViewSet, basename='exams')
 router.register(r'examcards', views.ExamCardViewSet, basename='examcards')
 router.register(r'questions', views.QuestionViewSet, basename='questions')
 router.register(r'labels', views.LabelViewSet, basename='labels')
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path(
+        'exams/<int:pk>/detail/',
+        views.ExamDetailView.as_view(),
+        name='exam-detail'
+    ),
+    path(
+        'examcards/<int:pk>/detail/',
+        views.ExamcardDetailView.as_view(),
+        name='examcard-detail'
+    ),
+    path(
+        '',
+        include(router.urls)
+    ),
 ]

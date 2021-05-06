@@ -15,6 +15,10 @@ class Exam(models.Model):
         verbose_name='Тема экзамена'
     )
 
+    class Meta:
+        verbose_name = 'Экзамен'
+        verbose_name_plural = 'Экзамены'
+
     def __str__(self):
         return f'{self.theme}'
 
@@ -25,7 +29,8 @@ class ExamCard(models.Model):
     '''
     exam = models.ForeignKey(
         Exam,
-        on_delete=models.CASCADE
+        related_name='examcards',
+        on_delete=models.CASCADE,
     )
     number = models.PositiveSmallIntegerField()
 
@@ -43,6 +48,7 @@ class Question(models.Model):
     '''
     examcard = models.ForeignKey(
         ExamCard,
+        related_name='questions',
         on_delete=models.RESTRICT
     )
     title = models.CharField(
@@ -83,7 +89,11 @@ class LabelForChoice(models.Model):
     '''
     Варианты ответа
     '''
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(
+        Question,
+        related_name='labels',
+        on_delete=models.CASCADE
+    )
     label = models.CharField(
         max_length=50,
         blank=False,

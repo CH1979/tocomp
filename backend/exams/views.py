@@ -1,6 +1,11 @@
+from django.db.models import RestrictedError
 from rest_framework import viewsets
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST
 from .models import Exam, ExamCard, LabelForChoice, Question
 from .serializers import (
+    ExamDetailSerializer,
     ExamSerializer,
     ExamCardSerializer,
     LabelSerializer,
@@ -10,10 +15,28 @@ from .serializers import (
 
 class ExamViewSet(viewsets.ModelViewSet):
     '''
-    Вьюсет для тем экзаменов
+    Вьюсет для списка экзаменов
     '''
     queryset = Exam.objects.all()
     serializer_class = ExamSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        try:
+            return super().destroy(request, *args, **kwargs)
+        except RestrictedError:
+            data = {'message': 'Невозможно удалить экзамен, содержащий билеты'}
+            status_code = HTTP_400_BAD_REQUEST
+            return Response(data=data, status=status_code)
+
+
+class ExamDetailView(generics.RetrieveAPIView):
+    '''
+    Детальное представление экзамена
+    '''
+    queryset = Exam.objects.all()
+    serializer_class = ExamDetailSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'pk'
 
 
 class ExamCardViewSet(viewsets.ModelViewSet):
@@ -28,6 +51,16 @@ class ExamCardViewSet(viewsets.ModelViewSet):
         if exam is not None:
             queryset = queryset.filter(exam_id=exam)
         return queryset
+
+
+class ExamcardDetailView(generics.RetrieveAPIView):
+    '''
+    Детальное представление экзаменационного билета
+    '''
+    queryset = ExamCard.objects.all()
+    serializer_class = ExamCardSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'pk'
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
