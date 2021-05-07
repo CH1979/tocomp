@@ -33,17 +33,18 @@
     </div>
 
     <!--   Добавление нового экзамена   -->
-    <div class="column col-8">
+    <div class="add-exam bg-gray">
       <form class="form-group" @submit="submitForm">
-        <label class="form-label">Тема экзамена</label>
+        <label class="form-label">Добавить экзамен</label>
         <input
           class="form-input"
           type="text"
           v-model="theme"
           placeholder="Введите тему экзамена..."
+          required
         >
         <button class="btn btn-primary">
-          Добавить экзамен
+          OK
         </button>
       </form>
     </div>
@@ -82,3 +83,17 @@ export default {
   }
 }
 </script>
+
+<style>
+.add-exam {
+  border: rgb(87, 85, 217) solid 1px;
+  border-radius: 5px;
+  display: block;
+  margin: 5px 0;
+  max-width: 800px;
+  min-width: 300px;
+  padding: 10px;
+  position: sticky;
+  bottom: 0;
+}
+</style>

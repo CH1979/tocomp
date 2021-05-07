@@ -9,12 +9,14 @@
         type="text"
         v-model="title"
         placeholder="Введите заголовок вопроса"
+        required
       >
       <input
         class="form-input"
         type="text"
         v-model="content"
         placeholder="Введите содержание вопроса"
+        required
       >
       <span>В каком виде принимается ответ:</span>
       <select class="form-select" v-model="selectedAnswerType">
