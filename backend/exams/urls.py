@@ -7,7 +7,6 @@ router = DefaultRouter()
 router.register(r'exams', views.ExamViewSet, basename='exams')
 router.register(r'examcards', views.ExamCardViewSet, basename='examcards')
 router.register(r'questions', views.QuestionViewSet, basename='questions')
-router.register(r'labels', views.LabelViewSet, basename='labels')
 
 urlpatterns = [
     path(

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Exam, ExamCard, Question, LabelForChoice
+from .models import Exam, ExamCard, Question, Label
 
 
 class ExamSerializer(serializers.ModelSerializer):
@@ -10,8 +10,8 @@ class ExamSerializer(serializers.ModelSerializer):
 
 class LabelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LabelForChoice
-        fields = ('label',)
+        model = Label
+        fields = ('text', 'is_correct')
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -22,7 +22,6 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = (
             'examcard',
             'id',
-            'title',
             'content',
             'answer_type',
             'labels'
@@ -32,7 +31,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         labels_data = validated_data.pop('labels')
         question = Question.objects.create(**validated_data)
         for label_data in labels_data:
-            LabelForChoice.objects.create(question=question, **label_data)
+            Label.objects.create(question=question, **label_data)
         return question
 
 

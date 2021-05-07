@@ -1,4 +1,3 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -51,13 +50,10 @@ class Question(models.Model):
         related_name='questions',
         on_delete=models.RESTRICT
     )
-    title = models.CharField(
-        max_length=255,
-        blank=False,
-        null=False,
-        unique=True
+    content = models.TextField(
+        null=True,
+        blank=True
     )
-    content = RichTextUploadingField()
     ANSWER_TYPES = [
         ('TA', 'Текстовый ответ'),
         ('SC', 'Выбор единственного варианта'),
@@ -85,7 +81,7 @@ class TextAnswer(models.Model):
     answer = models.TextField()
 
 
-class LabelForChoice(models.Model):
+class Label(models.Model):
     '''
     Варианты ответа
     '''
@@ -94,10 +90,13 @@ class LabelForChoice(models.Model):
         related_name='labels',
         on_delete=models.CASCADE
     )
-    label = models.CharField(
+    text = models.CharField(
         max_length=50,
         blank=False,
         null=False
+    )
+    is_correct = models.BooleanField(
+        default=False
     )
 
     def __str__(self):
@@ -108,7 +107,7 @@ class Choice(models.Model):
     '''
     Выбранные варианты ответов
     '''
-    choice = models.ForeignKey(LabelForChoice, on_delete=models.CASCADE)
+    choice = models.ForeignKey(Label, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 

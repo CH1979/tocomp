@@ -2,12 +2,12 @@ from django.contrib import admin
 from .models import (
     Exam,
     ExamCard,
-    LabelForChoice,
+    Label,
     Question
 )
 
 
 admin.site.register(Exam)
 admin.site.register(ExamCard)
-admin.site.register(LabelForChoice)
+admin.site.register(Label)
 admin.site.register(Question)

@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
-from .models import Exam, ExamCard, LabelForChoice, Question
+from .models import Exam, ExamCard, Label, Question
 from .serializers import (
     ExamDetailSerializer,
     ExamSerializer,
@@ -84,7 +84,7 @@ class LabelViewSet(viewsets.ModelViewSet):
     serializer_class = LabelSerializer
 
     def get_queryset(self):
-        queryset = LabelForChoice.objects.all()
+        queryset = Label.objects.all()
         question = self.request.query_params.get('question')
         if question is not None:
             queryset = queryset.filter(question_id=question)
