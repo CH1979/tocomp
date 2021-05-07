@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router'
 import { Exam } from '../api/exams'
 import { Examcard } from '../api/examcards'
 import { Question } from '../api/questions'
 import {
   CREATE_EXAM,
   CREATE_QUESTION,
+  CREATE_EXAMCARD,
   DELETE_EXAM,
   DELETE_EXAMCARD,
   DELETE_QUESTION,
@@ -39,6 +41,12 @@ const getters = {
 const mutations = {
   [CREATE_EXAM] (state, exam) {
     state.exams = [...state.exams, exam]
+  },
+  [CREATE_EXAMCARD] (state, examcard) {
+    state.examdetail['examcards'] = [
+      ...state.examdetail['examcards'],
+      examcard
+    ]
   },
   [CREATE_QUESTION] (state, question) {
     state.examcarddetail['questions'] = [
@@ -89,6 +97,21 @@ const actions = {
       error => {
         if (error.response.status === 400) {
           commit(SET_API_STATUS_ERROR, error.response.data['theme'][0])
+        } else {
+          commit(SET_API_STATUS_ERROR, 'Error')
+        }
+      }
+    )
+  },
+  createExamcard ({ commit }, examcardData) {
+    Examcard.create(examcardData).then(
+      response => {
+        commit(CREATE_EXAMCARD, response.data)
+        router.push(`/examcards/${response.data['id']}/detail`)
+      },
+      error => {
+        if (error.response.status === 400) {
+          commit(SET_API_STATUS_ERROR, 'В данном экзамене есть билет с таким номером')
         } else {
           commit(SET_API_STATUS_ERROR, 'Error')
         }

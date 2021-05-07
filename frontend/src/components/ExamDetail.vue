@@ -34,11 +34,19 @@
       </div>
     </div>
 
-    <a
-      class="btn btn-primary"
-      @click="createExamcard({'exam': this.$route.params.id})">
-      Добавить билет
-    </a>
+    <form class="form-group form-inline">
+      <input
+        type="number"
+        placeholder="Номер билета"
+        v-model="number"
+        required
+      >
+      <a
+        class="btn btn-primary"
+        @click="createExamcard()">
+        Добавить билет
+      </a>
+    </form>
   </div>
 </template>
 
@@ -46,13 +54,22 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data () {
+    return {
+      number: ''
+    }
+  },
   name: 'examdetail',
   computed: mapGetters(['examdetail']),
   beforeMount () {
     this.$store.dispatch('getExamdetail', this.$route.params.id)
   },
   methods: {
-    createExamcard (examcardData) {
+    createExamcard () {
+      let examcardData = {
+        'exam': this.$route.params.id,
+        'number': this.number
+      }
       this.$store.dispatch('createExamcard', examcardData)
     },
     deleteExamcard (id) {
