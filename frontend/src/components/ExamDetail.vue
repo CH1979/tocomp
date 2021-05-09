@@ -23,7 +23,7 @@
         <div class="accordion-body">
           <ul>
             <li v-for="question in examcard.questions" :key="question.id">
-              {{ question.title }}
+              {{ question.content }}
             </li>
           </ul>
         </div>

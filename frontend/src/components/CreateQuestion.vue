@@ -7,15 +7,8 @@
       <input
         class="form-input"
         type="text"
-        v-model="title"
-        placeholder="Введите заголовок вопроса"
-        required
-      >
-      <input
-        class="form-input"
-        type="text"
         v-model="content"
-        placeholder="Введите содержание вопроса"
+        placeholder="Содержание вопроса"
         required
       >
       <span>В каком виде принимается ответ:</span>
@@ -39,7 +32,7 @@
         v-for="(label, index) in labels"
         :key="index"
       >
-        {{ label.label }}
+        {{ label.text }}
       </p>
       <form
         class="form-group input-group"
@@ -48,8 +41,15 @@
         <input
           class="form-input"
           type="text"
-          v-model="label"
+          v-model="label_text"
         >
+        <label class="form-checkbox form-inline">
+          <input
+            type="checkbox"
+            name="label"
+            v-model="label_is_correct"
+          ><i class="form-icon"></i>Верный вариант
+        </label>
         <button class="btn btn-primary">
           Добавить вариант ответа
         </button>
@@ -66,9 +66,9 @@ export default ({
     return {
       isAddLabelMode: false,
       isValidated: true,
-      label: '',
+      label_text: '',
+      label_is_correct: false,
       labels: [],
-      title: '',
       content: '',
       selectedAnswerType: 'TA',
       answerTypes: [
@@ -82,7 +82,6 @@ export default ({
   methods: {
     addQuestion (event) {
       this.createQuestion()
-      this.title = ''
       this.content = ''
       this.labels = []
       this.selectedAnswerType = 'TA'
@@ -91,15 +90,18 @@ export default ({
     createQuestion () {
       this.$store.dispatch('createQuestion', {
         examcard: this.$route.params.id,
-        title: this.title,
         content: this.content,
         answer_type: this.selectedAnswerType,
         labels: this.labels
       })
     },
     addLabel (event) {
-      this.labels.push({'label': this.label})
-      this.label = ''
+      this.labels.push({
+        'text': this.label_text,
+        'is_correct': this.label_is_correct
+      })
+      this.label_text = ''
+      this.label_is_correct = false
       event.preventDefault()
     }
   },
@@ -132,7 +134,5 @@ export default ({
   max-width: 800px;
   min-width: 300px;
   padding: 10px;
-  position: sticky;
-  bottom: 0;
 }
 </style>

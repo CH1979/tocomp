@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import ExamList from '../components/ExamList'
 import ExamDetail from '../components/ExamDetail'
 import ExamcardDetail from '../components/ExamcardDetail'
+import LabelList from '../components/LabelList'
 
 Vue.use(Router)
 
@@ -28,6 +29,17 @@ export default new Router({
       path: '/examcards/:id/detail',
       name: 'ExamcardDetail',
       component: ExamcardDetail
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: LabelList,
+      props: {labels: [
+        {'text': '1234', 'is_correct': false},
+        {'text': '7890', 'is_correct': true}
+      ],
+      is_many: true
+      }
     }
   ]
 })
