@@ -4,15 +4,47 @@
 
   <!-- Список вопросов -->
   <div class="question-list">
+
     <div
       class="bg-gray question"
       v-for="(question, index) in examcarddetail.questions"
       :key="index"
     >
+      <!-- Текст вопроса -->
       <p>
-        <strong>
-          {{ question.title }}
-        </strong>
+        {{ question.content }}
+      </p>
+      <!-- Текстовый ответ -->
+      <form v-if="question.answer_type=='TA'" class="form-group">
+        <input type="text" class="form-input" disabled>
+      </form>
+      <!-- Один правильный вариант ответа -->
+      <form v-else-if="question.answer_type=='SC'" class="form-group">
+        <label-list
+          :labels="question.labels"
+          :is_many="false"
+        ></label-list>
+      </form>
+      <!-- Несколько правильных вариантов -->
+      <form v-else-if="question.answer_type=='MC'" class="form-group">
+        <label-list
+          :labels="question.labels"
+          :is_many="true"
+        ></label-list>
+      </form>
+      <!-- Ответ в виде файла -->
+      <form
+        v-else-if="question.answer_type=='SF'"
+        class="form-group"
+      >
+        <input
+          class="form-input"
+          type="file"
+          disabled
+        >
+      </form>
+      <!-- Удаление вопроса -->
+      <p>
         <input
           type="button"
           class="btn btn-link"
@@ -20,47 +52,7 @@
           @click="deleteQuestion(question.id)"
         >
       </p>
-      <p>
-        {{ question.content }}
-      </p>
-      <form v-if="question.answer_type=='TA'" class="form-group">
-        <input type="text" class="form-input">
-      </form>
-      <form v-if="question.answer_type=='SC'" class="form-group">
-        <label
-          class="form-radio form-inline"
-          v-for="(label, index) in question.labels"
-          :key="index"
-        >
-          <input
-            type="radio"
-            name="label"
-            value="index"
-          ><i class="form-icon"></i>{{ label.label }}
-        </label>
-      </form>
-      <form v-if="question.answer_type=='MC'" class="form-group">
-        <label
-          class="form-checkbox form-inline"
-          v-for="(label, index) in question.labels"
-          :key="index"
-        >
-          <input
-            type="checkbox"
-            name="label"
-            value="index"
-          ><i class="form-icon"></i>{{ label.label }}
-        </label>
-      </form>
-      <form
-        v-if="question.answer_type=='SF'"
-        class="form-group"
-      >
-        <input
-          class="form-input"
-          type="file"
-        >
-      </form>
+
     </div>
   </div>
 
@@ -71,6 +63,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import CreateQuestion from './CreateQuestion'
+import LabelList from './LabelList'
 
 export default ({
   name: 'examcardDetail',
@@ -84,7 +77,8 @@ export default ({
     this.$store.dispatch('getExamcarddetail', this.$route.params.id)
   },
   components: {
-    'create-question': CreateQuestion
+    'create-question': CreateQuestion,
+    'label-list': LabelList
   }
 })
 </script>
