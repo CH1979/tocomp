@@ -11,15 +11,13 @@
             :key="exam.id"
           >
             <td>
-              {{ exam.theme }}
-            </td>
-            <td>
               <router-link
                 class="btn btn-link"
                 :to="'/exams/' + exam.id + '/detail'">
-
-                редактировать
+                {{ exam.theme }}
               </router-link>
+            </td>
+            <td>
               <input
                 class="btn btn-link"
                 type="button"
