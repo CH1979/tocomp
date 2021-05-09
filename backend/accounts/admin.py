@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import Course, GroupDetail
 
-# Register your models here.
+
+admin.site.register(Course)
+
+
+@admin.register(GroupDetail)
+class GroupDetailAdmin(admin.ModelAdmin):
+    list_display = ('year', 'course')
