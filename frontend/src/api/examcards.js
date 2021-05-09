@@ -4,7 +4,7 @@ export const Examcard = {
   create (examcardData) {
     return new Promise((resolve, reject) => {
       HTTP
-        .post('/examcards/', examcardData)
+        .post('/exams/examcards/', examcardData)
         .then(response => {
           resolve(response)
         }, error => {
@@ -15,7 +15,7 @@ export const Examcard = {
   delete (id) {
     return new Promise((resolve, reject) => {
       HTTP
-        .delete(`/examcards/${id}/`)
+        .delete(`/exams/examcards/${id}/`)
         .then(response => {
           resolve(response)
         })
@@ -25,7 +25,7 @@ export const Examcard = {
     })
   },
   list (id) {
-    return HTTP.get(`/examcards/${id}/detail/`).then(response => {
+    return HTTP.get(`/exams/examcards/${id}/detail/`).then(response => {
       return response.data
     })
   }

@@ -4,7 +4,7 @@ export const Question = {
   create (questionData) {
     return new Promise((resolve, reject) => {
       HTTP
-        .post('/questions/', questionData)
+        .post('/exams/questions/', questionData)
         .then(response => {
           resolve(response)
         }, error => {
@@ -15,7 +15,7 @@ export const Question = {
   delete (id) {
     return new Promise((resolve, reject) => {
       HTTP
-        .delete(`/questions/${id}/`)
+        .delete(`/exams/questions/${id}/`)
         .then(response => {
           resolve(response)
         })
