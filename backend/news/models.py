@@ -1,4 +1,3 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -9,7 +8,11 @@ class News(models.Model):
         blank=False,
         null=False
     )
-    content = RichTextUploadingField()
+    content = models.TextField(
+        null=True,
+        blank=True,
+        default='Lorem ipsum'
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.RESTRICT
