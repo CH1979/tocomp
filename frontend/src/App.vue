@@ -16,7 +16,11 @@
       <div class="column col-12">
         <router-view></router-view>
       </div>
-      <div class="toast toast-error" v-if="apiError"> {{ errorMessage }} </div>
+      <transition name="fade">
+        <div class="toast toast-error error-message" v-if="apiError">
+          {{ errorMessage }}
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -36,7 +40,7 @@ export default {
     apiError () {
       setTimeout(() => {
         this.$store.commit(SET_API_STATUS_DEFAULT)
-      }, 2000)
+      }, 1500)
     }
   }
 }
@@ -51,5 +55,19 @@ body {
 }
 div#app {
   width: 90%;
+}
+.error-message {
+  border-radius: 5px;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  width: 400px;
+  margin-left: -200px; /* Половина ширины */
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 500ms;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
