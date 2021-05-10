@@ -1,18 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router'
-import { Exam } from '../api/exams'
+import exams from './modules/exams'
 import { Examcard } from '../api/examcards'
 import { Question } from '../api/questions'
 import {
-  CREATE_EXAM,
   CREATE_QUESTION,
   CREATE_EXAMCARD,
-  DELETE_EXAM,
   DELETE_EXAMCARD,
   DELETE_QUESTION,
-  SET_EXAMS,
-  SET_EXAMDETAIL,
   SET_EXAMCARDDETAIL,
   SET_API_STATUS_ERROR,
   SET_API_STATUS_DEFAULT
@@ -23,8 +19,6 @@ Vue.use(Vuex)
 const state = {
   apiError: false,
   errorMessage: '',
-  exams: [],
-  examdetail: [],
   examcarddetail: [],
   labels: []
 }
@@ -32,16 +26,11 @@ const state = {
 const getters = {
   apiError: state => state.apiError,
   errorMessage: state => state.errorMessage,
-  exams: state => state.exams,
-  examdetail: state => state.examdetail,
   examcarddetail: state => state.examcarddetail,
   labels: state => state.labels
 }
 
 const mutations = {
-  [CREATE_EXAM] (state, exam) {
-    state.exams = [...state.exams, exam]
-  },
   [CREATE_EXAMCARD] (state, examcard) {
     state.examdetail['examcards'] = [
       ...state.examdetail['examcards'],
@@ -54,11 +43,6 @@ const mutations = {
       question
     ]
   },
-  [DELETE_EXAM] (state, { id }) {
-    state.exams = state.exams.filter(exam => {
-      return exam.id !== id
-    })
-  },
   [DELETE_EXAMCARD] (state, id) {
     state.examdetail['examcards'] = state.examdetail['examcards'].filter(examcard => {
       return examcard.id !== id
@@ -68,12 +52,6 @@ const mutations = {
     state.examcarddetail['questions'] = state.examcarddetail['questions'].filter(question => {
       return question.id !== id
     })
-  },
-  [SET_EXAMS] (state, { exams }) {
-    state.exams = exams
-  },
-  [SET_EXAMDETAIL] (state, { examdetail }) {
-    state.examdetail = examdetail
   },
   [SET_EXAMCARDDETAIL] (state, { examcarddetail }) {
     state.examcarddetail = examcarddetail
@@ -89,20 +67,6 @@ const mutations = {
 }
 
 const actions = {
-  createExam ({ commit }, examData) {
-    Exam.create(examData).then(
-      response => {
-        commit(CREATE_EXAM, response.data)
-      },
-      error => {
-        if (error.response.status === 400) {
-          commit(SET_API_STATUS_ERROR, error.response.data['theme'][0])
-        } else {
-          commit(SET_API_STATUS_ERROR, 'Error')
-        }
-      }
-    )
-  },
   createExamcard ({ commit }, examcardData) {
     Examcard.create(examcardData).then(
       response => {
@@ -132,19 +96,6 @@ const actions = {
       }
     )
   },
-  deleteExam ({commit}, exam) {
-    Exam.delete(exam)
-      .then(response => {
-        commit(DELETE_EXAM, exam)
-      },
-      error => {
-        if (error.response.status === 400) {
-          commit(SET_API_STATUS_ERROR, error.response.data['message'])
-        } else {
-          commit(SET_API_STATUS_ERROR, 'Error')
-        }
-      })
-  },
   deleteExamcard ({commit}, id) {
     Examcard.delete(id)
       .then(response => {
@@ -163,18 +114,6 @@ const actions = {
       commit(DELETE_QUESTION, questionId)
     )
   },
-  getExams ({ commit }) {
-    Exam.list().then(exams => {
-      commit(SET_EXAMS, { exams })
-    })
-  },
-  getExamdetail ({ commit }, exam) {
-    Exam.detail(exam).then(
-      examdetail => {
-        commit(SET_EXAMDETAIL, { examdetail })
-      }
-    )
-  },
   getExamcarddetail ({ commit }, examcard) {
     Examcard.list(examcard).then(
       examcarddetail => {
@@ -185,6 +124,9 @@ const actions = {
 }
 
 export default new Vuex.Store({
+  modules: {
+    exams
+  },
   state,
   getters,
   actions,
