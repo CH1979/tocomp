@@ -4,7 +4,8 @@ import {
   DELETE_EXAM,
   SET_API_STATUS_ERROR,
   SET_EXAMS,
-  SET_EXAMDETAIL
+  SET_EXAMDETAIL,
+  SET_API_STATUS_UNKNOWN_ERROR
 } from '../mutation-types'
 
 const state = () => ({
@@ -44,7 +45,7 @@ const actions = {
         if (error.response.status === 400) {
           commit(SET_API_STATUS_ERROR, error.response.data['theme'][0])
         } else {
-          commit(SET_API_STATUS_ERROR, 'Error')
+          commit(SET_API_STATUS_UNKNOWN_ERROR)
         }
       }
     )
@@ -58,7 +59,7 @@ const actions = {
         if (error.response.status === 400) {
           commit(SET_API_STATUS_ERROR, error.response.data['message'])
         } else {
-          commit(SET_API_STATUS_ERROR, 'Error')
+          commit(SET_API_STATUS_UNKNOWN_ERROR)
         }
       })
   },

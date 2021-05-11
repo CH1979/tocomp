@@ -7,6 +7,9 @@
             <router-link to="/" class="btn btn-link">
               Главная
             </router-link>
+            <router-link to="/news" class="btn btn-link">
+              Новости
+            </router-link>
             <router-link to="/exams" class="btn btn-link">
               Список экзаменов
             </router-link>

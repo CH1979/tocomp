@@ -7,7 +7,8 @@ import {
   DELETE_EXAMCARD,
   DELETE_QUESTION,
   SET_EXAMCARDDETAIL,
-  SET_API_STATUS_ERROR
+  SET_API_STATUS_ERROR,
+  SET_API_STATUS_UNKNOWN_ERROR
 } from '../mutation-types'
 
 const state = {
@@ -59,7 +60,7 @@ const actions = {
         if (error.response.status === 400) {
           commit(SET_API_STATUS_ERROR, 'В данном экзамене есть билет с таким номером')
         } else {
-          commit(SET_API_STATUS_ERROR, 'Error')
+          commit(SET_API_STATUS_UNKNOWN_ERROR)
         }
       }
     )
@@ -73,7 +74,7 @@ const actions = {
         if (error.response.status === 400) {
           commit(SET_API_STATUS_ERROR, error.response.data['title'][0])
         } else {
-          commit(SET_API_STATUS_ERROR, 'Error')
+          commit(SET_API_STATUS_UNKNOWN_ERROR)
         }
       }
     )
@@ -87,7 +88,7 @@ const actions = {
         if (error.response.status === 400) {
           commit(SET_API_STATUS_ERROR, error.response.data['message'])
         } else {
-          commit(SET_API_STATUS_ERROR, 'Error')
+          commit(SET_API_STATUS_UNKNOWN_ERROR)
         }
       })
   },

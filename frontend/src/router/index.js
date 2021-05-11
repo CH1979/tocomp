@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import ExamList from '../components/ExamList'
 import ExamDetail from '../components/ExamDetail'
 import ExamcardDetail from '../components/ExamcardDetail'
-import LabelList from '../components/LabelList'
+import CreateNews from '../components/CreateNews'
+import News from '../components/News'
 
 Vue.use(Router)
 
@@ -31,15 +32,14 @@ export default new Router({
       component: ExamcardDetail
     },
     {
-      path: '/test',
-      name: 'Test',
-      component: LabelList,
-      props: {labels: [
-        {'text': '1234', 'is_correct': false},
-        {'text': '7890', 'is_correct': true}
-      ],
-      is_many: true
-      }
+      path: '/news',
+      name: 'News',
+      component: News
+    },
+    {
+      path: '/news/add',
+      name: 'AddNews',
+      component: CreateNews
     }
   ]
 })

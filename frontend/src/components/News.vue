@@ -1,0 +1,55 @@
+<template>
+  <!--   Новости   -->
+  <div class="column col-12">
+    <h1>Новости</h1>
+    <router-link to="/news/add">Добавить новость</router-link>
+    <div
+      v-for="news_item in news"
+      :key="news_item.id"
+    >
+      <h2>{{ news_item.title }}</h2>
+      <div>
+        {{ news_item.content }}
+      </div>
+      <div class="columns">
+        <div class="column col-6">
+          Автор:
+          {{ news_item.author.first_name }}
+          {{ news_item.author.last_name }}
+        </div>
+        <div class="column col-6">
+          Опубликовано: {{ news_item.created_at | localeDate }}
+        </div>
+      </div>
+      <input
+        class="btn btn-link"
+        type="button"
+        value="удалить"
+        @click="deleteNews(news_item)"
+      />
+    </div>
+  </div>
+</template>
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'news-list',
+  methods: {
+    deleteNews (news) {
+      this.$store.dispatch('deleteNews', news)
+    }
+  },
+  computed: {
+    ...mapGetters(['news'])
+  },
+  filters: {
+    localeDate: function (value) {
+      return (new Date(value)).toLocaleString()
+    }
+  },
+  beforeMount () {
+    this.$store.dispatch('getNews')
+  }
+}
+</script>
