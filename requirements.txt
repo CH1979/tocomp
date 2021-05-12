@@ -1,7 +1,9 @@
-Package             Version
-------------------- -------
-Django              3.1.7
-django-ckeditor     6.0.0
-djangorestframework 3.12.4
-flake8              3.8.4
-Pillow              8.1.0
+Package                       Version
+----------------------------- -------
+dj-rest-auth                  2.1.4
+Django                        3.1.7
+django-ckeditor               6.0.0
+djangorestframework           3.12.4
+djangorestframework-simplejwt 4.6.0
+flake8                        3.8.4
+Pillow                        8.1.0

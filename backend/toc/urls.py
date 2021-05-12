@@ -23,6 +23,7 @@ from django.urls import path, include
 urlpatterns = [
     path('api/v1/exams/', include('exams.urls')),
     path('api/v1/news/', include('news.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
