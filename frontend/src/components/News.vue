@@ -2,7 +2,7 @@
   <!--   Новости   -->
   <div class="column col-12">
     <h1>Новости</h1>
-    <router-link to="/news/add">Добавить новость</router-link>
+    <router-link to="/news/add" v-if="user">Добавить новость</router-link>
     <div
       v-for="news_item in news"
       :key="news_item.id"
@@ -25,7 +25,8 @@
         class="btn btn-link"
         type="button"
         value="удалить"
-        @click="deleteNews(news_item)"
+        v-if="user"
+        @click="deleteNews(news_item.id)"
       />
     </div>
   </div>
@@ -36,12 +37,12 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'news-list',
   methods: {
-    deleteNews (news) {
-      this.$store.dispatch('deleteNews', news)
+    deleteNews (newsId) {
+      this.$store.dispatch('deleteNews', newsId)
     }
   },
   computed: {
-    ...mapGetters(['news'])
+    ...mapGetters(['news', 'user'])
   },
   filters: {
     localeDate: function (value) {

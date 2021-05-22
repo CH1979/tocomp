@@ -14,6 +14,17 @@
               Список экзаменов
             </router-link>
           </section>
+          <section class="navbar-section">
+            <router-link to="/account" class="btn btn-secondary" v-if="user">
+              Личный кабинет
+            </router-link>
+            <router-link to='/login' class="btn btn-primary" v-if="!user">
+              Войти
+            </router-link>
+            <router-link to='/logout' class="btn btn-primary" v-if="user">
+              Выйти
+            </router-link>
+          </section>
         </header>
       </div>
       <div class="column col-12">
@@ -29,15 +40,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { SET_API_STATUS_DEFAULT } from './store/mutation-types'
 
 export default {
   computed: {
-    ...mapState({
-      apiError: state => state.apiError,
-      errorMessage: state => state.errorMessage
-    })
+    ...mapGetters([
+      'apiError',
+      'errorMessage',
+      'user'
+    ])
   },
   watch: {
     apiError () {
@@ -45,6 +57,10 @@ export default {
         this.$store.commit(SET_API_STATUS_DEFAULT)
       }, 1500)
     }
+  },
+  beforeMount () {
+    this.$store.dispatch('refreshToken')
+    this.$store.dispatch('userCheck')
   }
 }
 </script>

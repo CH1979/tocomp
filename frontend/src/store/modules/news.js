@@ -1,3 +1,4 @@
+import router from '../../router'
 import { News } from '../../api/news'
 import {
   CREATE_NEWS,
@@ -17,7 +18,7 @@ const getters = {
 
 const mutations = {
   [CREATE_NEWS] (state, news) {
-    state.news = [...state.exams, news]
+    state.news = [...state.news, news]
   },
   [DELETE_NEWS] (state, { id }) {
     state.news = state.news.filter(news => {
@@ -34,6 +35,7 @@ const actions = {
     News.create(newsData).then(
       response => {
         commit(CREATE_NEWS, response.data)
+        router.push({ name: 'news' })
       },
       error => {
         if (error.response.status === 400) {
@@ -45,8 +47,8 @@ const actions = {
     )
   },
   deleteNews ({commit}, news) {
-    News.delete(news)
-      .then(response => {
+    News.delete(news).then(
+      response => {
         commit(DELETE_NEWS, news)
       },
       error => {

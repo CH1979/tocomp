@@ -1,9 +1,9 @@
-import { HTTP } from './common'
+import { securedAPI } from './common'
 
 export const Question = {
   create (questionData) {
     return new Promise((resolve, reject) => {
-      HTTP
+      securedAPI
         .post('/exams/questions/', questionData)
         .then(response => {
           resolve(response)
@@ -14,7 +14,7 @@ export const Question = {
   },
   delete (id) {
     return new Promise((resolve, reject) => {
-      HTTP
+      securedAPI
         .delete(`/exams/questions/${id}/`)
         .then(response => {
           resolve(response)

@@ -1,10 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import ExamList from '../components/ExamList'
 import ExamDetail from '../components/ExamDetail'
 import ExamcardDetail from '../components/ExamcardDetail'
 import CreateNews from '../components/CreateNews'
 import News from '../components/News'
+import Account from '../components/Account'
+import Login from '../components/Login'
+import Logout from '../components/Logout'
+
+/* import store from '../store/index'
+
+const redirectLogout = (to, from, next) => {
+  store.dispatch('userLogout')
+    .then(() => next('/'))
+} */
 
 Vue.use(Router)
 
@@ -13,33 +24,42 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MainPage',
+      name: 'home',
       component: { template: '<h1>Главная</h1>' }
     },
     {
       path: '/exams',
-      name: 'ExamList',
       component: ExamList
     },
     {
       path: '/exams/:id/detail',
-      name: 'ExamDetail',
       component: ExamDetail
     },
     {
       path: '/examcards/:id/detail',
-      name: 'ExamcardDetail',
       component: ExamcardDetail
     },
     {
       path: '/news',
-      name: 'News',
+      name: 'news',
       component: News
     },
     {
       path: '/news/add',
-      name: 'AddNews',
       component: CreateNews
+    },
+    {
+      path: '/account',
+      component: Account
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/logout',
+      component: Logout
     }
   ]
 })

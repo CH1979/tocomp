@@ -1,9 +1,9 @@
-import { HTTP } from './common'
+import { mainAPI, securedAPI } from './common'
 
 export const Exam = {
   create (theme) {
     return new Promise((resolve, reject) => {
-      HTTP
+      securedAPI
         .post('/exams/exams/', theme)
         .then(response => {
           resolve(response)
@@ -14,7 +14,7 @@ export const Exam = {
   },
   delete (exam) {
     return new Promise((resolve, reject) => {
-      HTTP
+      securedAPI
         .delete(`/exams/exams/${exam.id}/`)
         .then(response => {
           resolve(response)
@@ -25,17 +25,17 @@ export const Exam = {
     })
   },
   detail (exam) {
-    return HTTP.get(`/exams/exams/${exam}/detail/`).then(response => {
+    return mainAPI.get(`/exams/exams/${exam}/detail/`).then(response => {
       return response.data
     })
   },
   list () {
-    return HTTP.get('/exams/exams/').then(response => {
+    return mainAPI.get('/exams/exams/').then(response => {
       return response.data
     })
   },
   update (exam, theme) {
-    return HTTP.put(`/exams/exams/${exam}/`, theme).then(response => {
+    return securedAPI.put(`/exams/exams/${exam}/`, theme).then(response => {
       return response.data
     })
   }

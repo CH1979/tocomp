@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default ({
   name: 'create-news',
   data () {
@@ -40,9 +42,14 @@ export default ({
     createNews () {
       this.$store.dispatch('createNews', {
         title: this.title,
-        content: this.content
+        content: this.content,
+        author: this.user
       })
     }
+  },
+  computed: {
+    ...mapGetters(['user'])
   }
+
 })
 </script>

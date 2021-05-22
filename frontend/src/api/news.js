@@ -1,9 +1,9 @@
-import { HTTP } from './common'
+import { mainAPI, securedAPI } from './common'
 
 export const News = {
   create (newsData) {
     return new Promise((resolve, reject) => {
-      HTTP
+      securedAPI
         .post('/news/news/', newsData)
         .then(response => {
           resolve(response)
@@ -14,7 +14,7 @@ export const News = {
   },
   delete (id) {
     return new Promise((resolve, reject) => {
-      HTTP
+      mainAPI
         .delete(`/news/news/${id}/`)
         .then(response => {
           resolve(response)
@@ -25,7 +25,7 @@ export const News = {
     })
   },
   list () {
-    return HTTP.get(`/news/news/`).then(response => {
+    return mainAPI.get(`/news/news/`).then(response => {
       return response.data
     })
   }
