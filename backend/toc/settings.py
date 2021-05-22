@@ -25,7 +25,10 @@ SECRET_KEY = '3a)vu(xbjb0o57@33sr_6*wao!c#cj117p=y18cegln@_8o$a1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'toc.com'
+]
 
 
 # Application definition
@@ -37,16 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'news',
-    'exams',
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
-    'corsheaders'
+    'corsheaders',
+    'sslserver',
+    'accounts',
+    'news',
+    'exams',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,22 +59,40 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'toc.middleware.MoveJWTRefreshCookieIntoTheBody',
 ]
 
 ROOT_URLCONF = 'toc.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.TokenAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
+    # 'DEFAULT_SCHEMA_CLASS': (
+    #     'rest_framework.schemas.coreapi.AutoSchema',
+    # ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
     )
-
 }
 
+REST_SESSION_LOGIN = False
 REST_USE_JWT = True
-
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_COOKIE = 'jwt-access-token'
+JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
+JWT_AUTH_SECURE = True
+JWT_AUTH_RETURN_EXPIRATION = True
+CORS_ALLOWED_ORIGINS = [
+    'https://toc.com',
+    'https://toc.com:8000',
+    'https://toc.com:8080'
+]
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = [
+    '127.0.0.1',
+    'toc.com',
+]
 
 TEMPLATES = [
     {
@@ -86,14 +109,6 @@ TEMPLATES = [
         },
     },
 ]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",
-    "http://localhost:8000",
-    "http://127.0.0.1:8080"
-]
-
-CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'toc.wsgi.application'
 
