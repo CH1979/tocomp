@@ -85,6 +85,11 @@ JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
 JWT_AUTH_SECURE = True
 JWT_AUTH_RETURN_EXPIRATION = True
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.'
+    'serializers.ExtendedUserDetailsSerializer'
+}
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
