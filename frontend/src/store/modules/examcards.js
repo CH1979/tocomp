@@ -1,4 +1,5 @@
 import router from '../../router'
+import { Exam } from '../../api/exams'
 import { Examcard } from '../../api/examcards'
 import { Question } from '../../api/questions'
 import {
@@ -6,6 +7,7 @@ import {
   CREATE_EXAMCARD,
   DELETE_EXAMCARD,
   DELETE_QUESTION,
+  SET_EXAMDETAIL,
   SET_EXAMCARDDETAIL,
   SET_API_STATUS_ERROR,
   SET_API_STATUS_UNKNOWN_ERROR
@@ -13,11 +15,13 @@ import {
 
 const state = {
   examcarddetail: [],
+  examdetail: [],
   labels: []
 }
 
 const getters = {
   examcarddetail: state => state.examcarddetail,
+  examdetail: state => state.examdetail,
   labels: state => state.labels
 }
 
@@ -46,6 +50,9 @@ const mutations = {
   },
   [SET_EXAMCARDDETAIL] (state, { examcarddetail }) {
     state.examcarddetail = examcarddetail
+  },
+  [SET_EXAMDETAIL] (state, { examdetail }) {
+    state.examdetail = examdetail
   }
 }
 
@@ -101,6 +108,13 @@ const actions = {
     Examcard.list(examcard).then(
       examcarddetail => {
         commit(SET_EXAMCARDDETAIL, { examcarddetail })
+      }
+    )
+  },
+  getExamdetail ({ commit }, exam) {
+    Exam.detail(exam).then(
+      examdetail => {
+        commit(SET_EXAMDETAIL, { examdetail })
       }
     )
   }
