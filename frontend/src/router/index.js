@@ -10,13 +10,6 @@ import Account from '../components/Account'
 import Login from '../components/Login'
 import Logout from '../components/Logout'
 
-/* import store from '../store/index'
-
-const redirectLogout = (to, from, next) => {
-  store.dispatch('userLogout')
-    .then(() => next('/'))
-} */
-
 Vue.use(Router)
 
 export default new Router({
@@ -50,6 +43,7 @@ export default new Router({
     },
     {
       path: '/account',
+      name: 'account',
       component: Account
     },
     {
