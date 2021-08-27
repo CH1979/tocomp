@@ -55,12 +55,20 @@ import { mapGetters } from 'vuex'
 
 export default {
   data () {
-    return {
-      number: ''
-    }
+    return { newNumber: '' }
   },
   name: 'examdetail',
-  computed: mapGetters(['examdetail']),
+  computed: {
+    ...mapGetters(['examdetail']),
+    number: {
+      get: function () {
+        return this.examdetail.examcards.length + 1
+      },
+      set: function (newNumber) {
+        this.newNumber = newNumber
+      }
+    }
+  },
   beforeMount () {
     this.$store.dispatch('getExamdetail', this.$route.params.id)
   },
@@ -68,7 +76,7 @@ export default {
     createExamcard () {
       let examcardData = {
         'exam': this.$route.params.id,
-        'number': this.number
+        'number': this.newNumber
       }
       this.$store.dispatch('createExamcard', examcardData)
     },
