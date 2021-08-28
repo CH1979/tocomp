@@ -17,7 +17,12 @@ class News(models.Model):
         User,
         on_delete=models.RESTRICT
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    image = models.ImageField(
+        upload_to='uploads/%Y/'
+    )
 
     def __str__(self):
         return f'{self.title}'
