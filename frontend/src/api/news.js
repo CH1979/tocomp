@@ -4,7 +4,7 @@ export const News = {
   create (newsData) {
     return new Promise((resolve, reject) => {
       securedAPI
-        .post('/news/news/', newsData)
+        .post('/news/', newsData)
         .then(response => {
           resolve(response)
         }, error => {
@@ -15,7 +15,7 @@ export const News = {
   delete (id) {
     return new Promise((resolve, reject) => {
       mainAPI
-        .delete(`/news/news/${id}/`)
+        .delete(`/news/${id}/`)
         .then(response => {
           resolve(response)
         })
@@ -25,7 +25,7 @@ export const News = {
     })
   },
   list () {
-    return mainAPI.get(`/news/news/`).then(response => {
+    return mainAPI.get(`/news/`).then(response => {
       return response.data
     })
   }
