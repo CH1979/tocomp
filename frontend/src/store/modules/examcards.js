@@ -14,9 +14,9 @@ import {
 } from '../mutation-types'
 
 const state = {
-  examcarddetail: [],
-  examdetail: [],
-  labels: []
+  examcarddetail: {},
+  examdetail: { examcards: {} },
+  labels: {}
 }
 
 const getters = {
