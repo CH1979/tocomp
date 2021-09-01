@@ -1,7 +1,11 @@
 /.vscode
+
 /env
 /dist
 /node_modules
+
+/backend/fixtures
+/backend/uploads
 /toc/static
 /toc/uploads
 
