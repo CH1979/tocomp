@@ -1,14 +1,6 @@
-from django.urls import path, include
-from rest_framework.routers import SimpleRouter
+from rest_framework.routers import DefaultRouter
 from . import views
 
 
-router = SimpleRouter()
-router.register(r'', views.NewsViewSet, basename='news')
-
-urlpatterns = [
-    path(
-        '',
-        include(router.urls)
-    )
-]
+router = DefaultRouter()
+router.register(r'news', views.NewsViewSet, basename='news')
