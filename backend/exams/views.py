@@ -1,6 +1,5 @@
 from django.db.models import RestrictedError
 from rest_framework import viewsets
-from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from .models import Exam, ExamCard, Label, Question
@@ -28,15 +27,11 @@ class ExamViewSet(viewsets.ModelViewSet):
             status_code = HTTP_400_BAD_REQUEST
             return Response(data=data, status=status_code)
 
-
-class ExamDetailView(generics.RetrieveAPIView):
-    '''
-    Детальное представление экзамена
-    '''
-    queryset = Exam.objects.all()
-    serializer_class = ExamDetailSerializer
-    lookup_field = 'id'
-    lookup_url_kwarg = 'pk'
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return ExamDetailSerializer
+        else:
+            return ExamSerializer
 
 
 class ExamCardViewSet(viewsets.ModelViewSet):
@@ -51,16 +46,6 @@ class ExamCardViewSet(viewsets.ModelViewSet):
         if exam is not None:
             queryset = queryset.filter(exam_id=exam)
         return queryset
-
-
-class ExamcardDetailView(generics.RetrieveAPIView):
-    '''
-    Детальное представление экзаменационного билета
-    '''
-    queryset = ExamCard.objects.all()
-    serializer_class = ExamCardSerializer
-    lookup_field = 'id'
-    lookup_url_kwarg = 'pk'
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
