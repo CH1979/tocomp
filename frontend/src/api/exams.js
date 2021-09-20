@@ -4,7 +4,7 @@ export const Exam = {
   create (theme) {
     return new Promise((resolve, reject) => {
       securedAPI
-        .post('/exams/exams/', theme)
+        .post('/exams/', theme)
         .then(response => {
           resolve(response)
         }, error => {
@@ -15,7 +15,7 @@ export const Exam = {
   delete (exam) {
     return new Promise((resolve, reject) => {
       securedAPI
-        .delete(`/exams/exams/${exam.id}/`)
+        .delete(`/exams/${exam.id}/`)
         .then(response => {
           resolve(response)
         })
@@ -25,17 +25,17 @@ export const Exam = {
     })
   },
   detail (exam) {
-    return mainAPI.get(`/exams/exams/${exam}/detail/`).then(response => {
+    return mainAPI.get(`/exams/${exam}/`).then(response => {
       return response.data
     })
   },
   list () {
-    return mainAPI.get('/exams/exams/').then(response => {
+    return mainAPI.get('/exams/').then(response => {
       return response.data
     })
   },
   update (exam, theme) {
-    return securedAPI.put(`/exams/exams/${exam}/`, theme).then(response => {
+    return securedAPI.put(`/exams/${exam}/`, theme).then(response => {
       return response.data
     })
   }

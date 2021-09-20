@@ -4,7 +4,10 @@ export const News = {
   create (newsData) {
     return new Promise((resolve, reject) => {
       securedAPI
-        .post('/news/', newsData)
+        .post(
+          '/news/',
+          newsData
+        )
         .then(response => {
           resolve(response)
         }, error => {

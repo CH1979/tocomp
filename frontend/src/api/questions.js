@@ -4,7 +4,7 @@ export const Question = {
   create (questionData) {
     return new Promise((resolve, reject) => {
       securedAPI
-        .post('/exams/questions/', questionData)
+        .post('/questions/', questionData)
         .then(response => {
           resolve(response)
         }, error => {
@@ -15,7 +15,7 @@ export const Question = {
   delete (id) {
     return new Promise((resolve, reject) => {
       securedAPI
-        .delete(`/exams/questions/${id}/`)
+        .delete(`/questions/${id}/`)
         .then(response => {
           resolve(response)
         })
