@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import News
+from news.models import News
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -10,17 +10,18 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class NewsSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer()
+    author = AuthorSerializer(read_only=True)
 
     class Meta:
         model = News
         fields = ('id', 'title', 'content', 'image', 'created_at', 'author')
 
     def create(self, validated_data):
+        author = self.context['request'].user
         news = News.objects.create(
-            author=self.context['request'].user,
+            author=author,
             title=validated_data['title'],
             image=validated_data['image'],
             content=validated_data['content']
-            )
+        )
         return news
