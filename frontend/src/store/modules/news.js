@@ -20,7 +20,7 @@ const mutations = {
   [CREATE_NEWS] (state, news) {
     state.news = [...state.news, news]
   },
-  [DELETE_NEWS] (state, { id }) {
+  [DELETE_NEWS] (state, id) {
     state.news = state.news.filter(news => {
       return news.id !== id
     })
@@ -39,7 +39,7 @@ const actions = {
       },
       error => {
         if (error.response.status === 400) {
-          commit(SET_API_STATUS_ERROR, error.response.data['theme'][0])
+          commit(SET_API_STATUS_ERROR, error.response.data)
         } else {
           commit(SET_API_STATUS_UNKNOWN_ERROR)
         }
