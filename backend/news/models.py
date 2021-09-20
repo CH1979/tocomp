@@ -15,7 +15,7 @@ class News(models.Model):
     )
     author = models.ForeignKey(
         User,
-        on_delete=models.RESTRICT
+        on_delete=models.PROTECT
     )
     created_at = models.DateTimeField(
         auto_now_add=True
@@ -28,4 +28,5 @@ class News(models.Model):
         return f'{self.title}'
 
     class Meta:
-        verbose_name_plural = 'News'
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'

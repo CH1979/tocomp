@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'corsheaders',
     'sslserver',
+    'django_extensions',
     'accounts',
     'news',
     'exams',
@@ -91,7 +92,7 @@ REST_AUTH_SERIALIZERS = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
 }
 
@@ -164,7 +165,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 

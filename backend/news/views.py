@@ -1,7 +1,8 @@
-from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework import viewsets
-from .models import News
-from .serializers import NewsSerializer
+from rest_framework.permissions import AllowAny, IsAdminUser
+
+from news.models import News
+from news.serializers import NewsSerializer
 
 
 class NewsViewSet(viewsets.ModelViewSet):
