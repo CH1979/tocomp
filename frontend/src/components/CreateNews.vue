@@ -8,6 +8,18 @@
         placeholder="Заголовок"
         required
       >
+      <input
+        type="file"
+        id="image"
+        ref="image"
+        accept="image/*"
+        @change="onFileChange"
+      >
+      <img
+        class="img-responsive"
+        v-bind="imagePreview"
+        v-show="showPreview"
+      >
       <textarea
         class="form-input"
         v-model="content"
@@ -29,23 +41,40 @@ export default ({
   data () {
     return {
       title: '',
-      content: ''
+      content: '',
+      image: '',
+      showPreview: false,
+      imagePreview: ''
     }
   },
   methods: {
     addNews (event) {
-      this.createNews()
-      this.title = ''
-      this.content = ''
+      let formData = new FormData()
+      formData.append('image', this.image)
+      formData.append('title', this.title)
+      formData.append('content', this.content)
+      formData.append('author', this.user)
+      console.log(formData)
+      this.$store.dispatch('createNews', formData)
       event.preventDefault()
     },
-    createNews () {
-      this.$store.dispatch('createNews', {
-        title: this.title,
-        content: this.content,
-        author: this.user
-      })
-    }
+    onFileChange () {
+      this.image = this.$refs.image.files[0]
+
+      let reader = new FileReader()
+
+      reader.addEventListener('load', function () {
+        console.log(this.showPreview)
+        console.log(this.imagePreview)
+      }.bind(this), false)
+
+      if (this.file) {
+        if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
+          reader.readAsDataURL(this.file)
+        }
+      }
+    },
+    removeImage () {}
   },
   computed: {
     ...mapGetters(['user'])

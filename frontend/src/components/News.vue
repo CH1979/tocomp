@@ -9,7 +9,15 @@
     >
       <h2>{{ news_item.title }}</h2>
       <div>
-        {{ news_item.content }}
+        <p
+          v-for="(paragraph, index) in news_item.content.split('\n')"
+          :key="index"
+        >
+          {{ paragraph }}
+        </p>
+      </div>
+      <div>
+        <img class="img-responsive" :src="news_item.image">
       </div>
       <div class="columns">
         <div class="column col-6">
@@ -17,7 +25,7 @@
           {{ news_item.author.first_name }}
           {{ news_item.author.last_name }}
         </div>
-        <div class="column col-6">
+        <div class="column col-6 text-right">
           Опубликовано: {{ news_item.created_at | localeDate }}
         </div>
       </div>
@@ -54,3 +62,9 @@ export default {
   }
 }
 </script>
+
+<style>
+p {
+  margin: 0.2rem 0;
+}
+</style>
