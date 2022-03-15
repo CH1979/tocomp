@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container">
+  <div id="app" class="container grid-lg">
     <div class="columns p-2">
       <div class="column col-12">
         <header class="navbar">
@@ -71,9 +71,10 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: #eee;
 }
-div#app {
-  width: 90%;
+.container {
+  background-color: #fff;
 }
 .error-message {
   border-radius: 5px;
