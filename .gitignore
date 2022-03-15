@@ -8,6 +8,7 @@
 /backend/uploads
 /toc/static
 /toc/uploads
+/secrets
 
 migrations
 *.sqlite3

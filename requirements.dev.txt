@@ -1,6 +1,8 @@
 dj-rest-auth
 django
 django-cors-headers
+django-sslserver
 djangorestframework
 djangorestframework-simplejwt
+flake8
 pillow
